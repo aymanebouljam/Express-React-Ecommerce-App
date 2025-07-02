@@ -30,4 +30,29 @@ router.post(
   }),
 );
 
+router.post(
+  '/',
+  handler(async (req, res) => {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      res.status(400);
+      throw new Error('All fields are required');
+    }
+
+    if (await User.findOne({ email })) {
+      res.status(403);
+      throw new Error('A user was already registered with this email');
+    }
+
+    await new User({
+      name,
+      email,
+      password,
+    }).save();
+
+    return res.status(201).json({ message: 'User registered successfully' });
+  }),
+);
+
 module.exports = router;
