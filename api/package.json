@@ -8,7 +8,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "format": "prettier --write . && npx eslint . --fix",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "seed": "node ./seeders/seeder.js"
   },
   "keywords": [],
   "author": "",
