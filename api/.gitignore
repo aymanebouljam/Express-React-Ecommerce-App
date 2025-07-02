@@ -28,11 +28,3 @@ dist/
 
 # npm cache
 .npm/
-
-
-package-lock.json
-
-.prettierrc
-
-.eslint.config.cj
-
