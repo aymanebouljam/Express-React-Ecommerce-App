@@ -1,14 +1,13 @@
-const router = require('express').Router();
 const handler = require('express-async-handler');
 const { login, register, getProfile, updateProfile } = require('../controllers/userController');
 const auth = require('../middlewares/auth');
 
-router.post('/login', handler(login));
+module.exports = (router) => {
+  router.post('/users/login', handler(login));
 
-router.post('/', handler(register));
+  router.post('/users/', handler(register));
 
-router.get('/profile', auth, handler(getProfile));
+  router.get('/users/profile', auth, handler(getProfile));
 
-router.patch('/profile', auth, handler(updateProfile));
-
-module.exports = router;
+  router.patch('/users/profile', auth, handler(updateProfile));
+};
