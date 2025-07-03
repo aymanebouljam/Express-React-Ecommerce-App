@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const handler = require('express-async-handler');
 const User = require('../models/User');
+const generateToken = require('../generators/generateToken');
 
 router.post(
   '/login',
@@ -18,7 +19,7 @@ router.post(
       id: user._id,
       name: user.name,
       email: user.email,
-      token: null,
+      token: generateToken(user._id, user.name),
       createdAt: new Date(user.createdAt).toLocaleString('en-US', {
         year: 'numeric',
         month: 'long',
