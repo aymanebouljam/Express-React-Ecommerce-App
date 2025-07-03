@@ -10,8 +10,6 @@ exports.getAllProducts = async (req, res) => {
 exports.getSingleProduct = async (req, res) => {
   const { id } = req.params;
 
-  console.log(req.params);
-
   if (!id) {
     res.status(400);
     throw new Error('No Product ID was provided');
