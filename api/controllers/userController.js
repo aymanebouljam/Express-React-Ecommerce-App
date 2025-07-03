@@ -55,7 +55,33 @@ exports.getProfile = async (req, res) => {
     id: user._id,
     name: user.name,
     email: user.email,
-    createdAt: user.createdAt.toLocaleString('en-US', {
+    createdAt: new Date(user.createdAt).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }),
+  });
+};
+
+exports.updateProfile = async (req, res) => {
+  const user = req.user;
+
+  user.name = req.body.name ?? user.name;
+  user.email = req.body.email ?? user.email;
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
+
+  const { _id, name, email, updatedAt } = await user.save();
+
+  return res.status(200).json({
+    id: _id,
+    name,
+    email,
+    token: generateToken(_id, name),
+    updatedAt: new Date(updatedAt).toLocaleString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
