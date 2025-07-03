@@ -1,9 +1,10 @@
 const Order = require('../models/Order');
+const { ObjectId } = require('mongoose').Types;
 
 exports.createOrder = async (req, res) => {
   const { orderItems, shippingAddress, taxPrice, shippingPrice, totalPrice } = req.body;
 
-  if (!orderItems || Array.isArray(orderItems)?.length === 0) {
+  if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
     res.status(400);
     throw new Error('No Item was Ordered');
   }
@@ -18,4 +19,40 @@ exports.createOrder = async (req, res) => {
   }).save();
 
   return res.status(201).json(order);
+};
+
+exports.updateOrderPayment = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id || !ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error('Invalid ID');
+  }
+
+  const order = await Order.findById(id);
+
+  if (!order) {
+    res.status(404);
+    throw new Error('Order Not Found');
+  }
+
+  order.paymentDetails = {
+    id: req.body.id,
+    status: req.body.status,
+    updated_time: req.body.updated_time,
+    email_address: req.body.email_address,
+  };
+
+  order.isPaid = true;
+  order.paidAt = Date.now();
+
+  const updatedOrder = await order.save();
+
+  return res.status(200).json(updatedOrder);
+};
+
+exports.getUserOrders = async (req, res) => {
+  const orders = await Order.find({ user: req.user._id }).sort({ _id: -1 });
+
+  return res.status(200).json(orders);
 };
