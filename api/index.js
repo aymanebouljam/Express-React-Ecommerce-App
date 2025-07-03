@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const errorHandler = require('./middlewares/errorHandler');
-const usersRouter = require('./routes/usersRoutes');
+const router = require('./routes/router')();
 
 require('dotenv').config();
 
@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
   res.send('app is running');
 });
 
-// Users Routes
-app.use('/api/users', usersRouter);
+// Routes
+app.use('/api', router);
 
 app.use(errorHandler);
 
