@@ -2,11 +2,23 @@ const express = require('express');
 const mongoose = require('mongoose');
 const errorHandler = require('./middlewares/errorHandler');
 const router = require('./routes/router');
+const cors = require('cors');
 
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || origin === process.env.CLIENT_URL) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not Allow by CORS'));
+      }
+    },
+  }),
+);
 const PORT = process.env.PORT || 9000;
 const MONGO_URL = process.env.MONGO_URL;
 
