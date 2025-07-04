@@ -1,5 +1,7 @@
 const Order = require('../models/Order');
-const { ObjectId } = require('mongoose').Types;
+const {
+  Types: { ObjectId },
+} = require('mongoose');
 
 exports.createOrder = async (req, res) => {
   const { orderItems, shippingAddress, taxPrice, shippingPrice, totalPrice } = req.body;
@@ -26,7 +28,7 @@ exports.updateOrderPayment = async (req, res) => {
 
   if (!id || !ObjectId.isValid(id)) {
     res.status(400);
-    throw new Error('Invalid ID');
+    throw new Error('Invalid order ID');
   }
 
   const order = await Order.findById(id);
@@ -55,4 +57,21 @@ exports.getUserOrders = async (req, res) => {
   const orders = await Order.find({ user: req.user._id }).sort({ _id: -1 });
 
   return res.status(200).json(orders);
+};
+
+exports.getSingleOrder = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id || !ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error('Invalid Order Id');
+  }
+  const order = await Order.findOne({ _id: id, user: req.user._id }).populate('user', 'email');
+
+  if (!order) {
+    res.status(404);
+    throw new Error('Order Not Found');
+  }
+
+  return res.status(200).json(order);
 };
