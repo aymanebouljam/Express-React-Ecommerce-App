@@ -5,9 +5,14 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async () => {
-    const res = await axios.get(`${baseURL}/products`);
-    return res.data;
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(`${baseURL}/products`);
+      return res.data;
+    } catch (err) {
+      const backendError = err.response?.data?.error ?? "Something went wrong";
+      return thunkAPI.rejectWithValue(backendError);
+    }
   }
 );
 
@@ -20,15 +25,17 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
+        state.error = null;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.error;
+        state.error = action.error.message;
       });
   },
 });
