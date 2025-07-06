@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
 
   const { IDLE, SUCCEEDED, LOADING, FAILED } = STATUSLABEL;
 
-  if (status === IDLE || status === LOADING)
+  if (status === IDLE || status === LOADING) {
     return (
       <div className="h-100 flex items-center justify-center">
         <HashLoader
@@ -21,6 +21,7 @@ const ProtectedRoute = ({ children }) => {
         />
       </div>
     );
+  }
 
   if (token && status === SUCCEEDED) {
     return children;
