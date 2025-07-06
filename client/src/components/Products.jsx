@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../redux/features/productsSlice";
+import { useNavigate } from "react-router-dom";
+import { HashLoader } from "react-spinners";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { products, loading, error } = useSelector((state) => state.products);
 
@@ -11,20 +14,35 @@ const Products = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="h-100 flex items-center justify-center">
+        <HashLoader
+          size={60}
+          color="#3498db"
+          loading={true}
+          speedMultiplier={1.5}
+          cssOverride={{ margin: "auto", display: "block" }}
+        />
+      </div>
+    );
+
   if (error) return <p>Error: {error}</p>;
   return (
     <>
-      {" "}
       <div className="bg-white">
-        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-16 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Customers also purchased
+            Featured products
           </h2>
 
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
-              <div key={product._id} className="group relative">
+              <div
+                key={product._id}
+                className="group relative"
+                onClick={() => navigate(`/details/${product._id}`)}
+              >
                 <img
                   alt={product.name}
                   src={product.image}
