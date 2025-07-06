@@ -41,7 +41,7 @@ const Products = () => {
               <div
                 key={product._id}
                 className="group relative"
-                onClick={() => navigate(`/details/${product._id}`)}
+                onClick={() => navigate(`/products/${product._id}`)}
               >
                 <img
                   alt={product.name}
