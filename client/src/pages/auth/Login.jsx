@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../redux/features/auth/authSlice";
 import { HashLoader } from "react-spinners";
+import STATUSLABEL from "../../redux/features/constants/status";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -10,9 +11,11 @@ const Login = () => {
 
   const { status, error } = useSelector((state) => state.auth);
 
+  const { SUCCEEDED, LOADING } = STATUSLABEL;
+
   useEffect(() => {
-    if (status === "succeded") return navigate("/");
-  }, [navigate, status]);
+    if (status === SUCCEEDED) return navigate("/");
+  }, [navigate, status, SUCCEEDED]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ const Login = () => {
     dispatch(login(credentials));
   };
 
-  if (status === "loading")
+  if (status === LOADING)
     return (
       <div className="h-100 flex items-center justify-center">
         <HashLoader
