@@ -3,23 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../redux/features/auth/authSlice";
 import { HashLoader } from "react-spinners";
+import STATUSLABEL from "../../redux/features/constants/status";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { status, error } = useSelector((state) => state.auth);
+  const { SUCCEEDED, LOADING } = STATUSLABEL;
 
   useEffect(() => {
-    if (status === "succeded") return navigate("/");
-  }, [status, navigate]);
+    if (status === SUCCEEDED) return navigate("/");
+  }, [status, navigate, SUCCEEDED]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const password = e.target.password.value;
     const confirmPassword = e.target["confirm-password"].value;
-
-    console.log(password, " ", confirmPassword);
 
     if (password !== confirmPassword) {
       alert("Passwords don't match");
@@ -34,7 +34,7 @@ const Register = () => {
     }
   };
 
-  if (status === "loading")
+  if (status === LOADING)
     return (
       <div className="h-100 flex items-center justify-center">
         <HashLoader

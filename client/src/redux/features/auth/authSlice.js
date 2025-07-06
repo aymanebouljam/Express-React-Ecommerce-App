@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import STATUSLABEL from "../constants/status";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+const { IDLE, SUCCEEDED, LOADING, FAILED } = STATUSLABEL;
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -35,7 +38,7 @@ const authSlice = createSlice({
   initialState: {
     user: null,
     token: null,
-    status: null,
+    status: IDLE,
     error: null,
   },
   reducers: {
@@ -53,18 +56,20 @@ const authSlice = createSlice({
       if (token && user) {
         state.token = token;
         state.user = JSON.parse(user);
-        state.status = "succeded";
+        state.status = SUCCEEDED;
+      } else {
+        state.status = FAILED;
       }
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
-        state.status = "loading";
+        state.status = LOADING;
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = "succeded";
+        state.status = SUCCEEDED;
         state.user = action.payload?.user;
         state.token = action.payload?.token;
         state.error = null;
@@ -73,16 +78,16 @@ const authSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(action.payload?.user));
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = FAILED;
         state.error = action.payload;
       })
 
       .addCase(register.pending, (state) => {
-        state.status = "loading";
+        state.status = LOADING;
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.status = "succeded";
+        state.status = SUCCEEDED;
         state.user = action.payload?.user;
         state.token = action.payload?.token;
         state.error = null;
@@ -91,7 +96,7 @@ const authSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(action.payload?.user));
       })
       .addCase(register.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = FAILED;
         state.error = action.payload;
       });
   },
