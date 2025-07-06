@@ -133,10 +133,10 @@ const ProductDetails = () => {
                   </svg>
 
                   <span className="text-gray-600 ml-3">
-                    {product.reviews.length}Reviews
+                    {product.reviews.length} Reviews
                   </span>
                 </span>
-                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
+                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-1.5">
                   <a className="text-gray-500">
                     <svg
                       fill="currentColor"
