@@ -16,10 +16,9 @@ const ProductDetails = () => {
   } = useSelector((state) => state.product);
 
   const [localProduct, setLocalProduct] = useState(null);
-  const [quantity, setQuantity] = useState(0);  
+  const [quantity, setQuantity] = useState(0);
   const [disabled, setDisabled] = useState(false);
-
-
+  
 
   useEffect(() => {
     if (!id) return;
@@ -62,25 +61,30 @@ const ProductDetails = () => {
     return <p>No product was found</p>;
   }
 
-const handleQuantity = (e) => {
-    const qte = e.target.value
+  const handleQuantity = (e) => {
+    const qte = e.target.value;
 
-    if(qte <= product.countInStock) {
-      setDisabled(false)
-      setQuantity(qte)
+    if (qte <= product.countInStock) {
+      setDisabled(false);
+      setQuantity(qte);
     } else {
-      setDisabled(true)
+      setDisabled(true);
     }
-}
-const handleAddToCart = () => {
-    dispatch(addToCart({
-      name: product.name,
-      quantity: quantity,
-      image: product.image,
-      price: product.price,
-      product: product._id,
-    }));
-  
+  };
+  const handleAddToCart = () => {
+    if (quantity > 0) {
+      dispatch(
+        addToCart({
+          name: product.name,
+          quantity: quantity,
+          image: product.image,
+          price: product.price,
+          product: product._id,
+        })
+      );
+    }else{
+       alert('You need to choose a quantity !')
+    }   
   };
 
   return (
@@ -95,7 +99,7 @@ const handleAddToCart = () => {
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                {product?.name?.split(" ")[0].toUpperCase()}
+                {product.name.split(" ")[0].toUpperCase()}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                 {product.name}
@@ -211,7 +215,15 @@ const handleAddToCart = () => {
                 </div>
                 <div className="flex ml-6 items-center">
                   <span className="mr-3">Quanity</span>
-                  <input type="number" name="quantity" min="0" className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-base pl-3 w-1/4" value={quantity} onChange={handleQuantity} disabled={product.countInstock ? true : disabled}/>
+                  <input
+                    type="number"
+                    name="quantity"
+                    min="0"
+                    className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-base pl-3 w-1/4"
+                    value={quantity}
+                    onChange={handleQuantity}
+                    disabled={product.countInstock === 0 ? true : disabled}
+                  />
                 </div>
               </div>
               <div className="flex">
@@ -226,7 +238,7 @@ const handleAddToCart = () => {
                 >
                   Add to cart
                 </button>
-                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4" disabled = {disabled}>
                   <svg
                     fill="currentColor"
                     strokeLinecap="round"
