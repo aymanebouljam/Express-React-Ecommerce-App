@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import ShoppingCart from "../pages/ShoppingCart";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const { token } = useSelector((state) => state.auth);
 
   const items = useSelector((state) => state.cart.items);
@@ -52,22 +54,38 @@ const Navbar = () => {
                 </button>
               </>
             )}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6 ml-3 mt-1"
+            <div
+              onClick={() => setOpen(true)}
+              className="relative flex items-center justify-center cursor-pointer px-2"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-              />
-            </svg>
+              {/* Cart Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-7 h-7 text-gray-800 hover:text-primary transition"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 
+         1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 
+         1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 
+         1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 
+         10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 
+         0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                />
+              </svg>
 
-            <span>{items.length}</span>
+              {/* Badge */}
+              {items.length > 0 && (
+                <span className="absolute top-1.5 right-0.5 bg-red-600 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shadow-md min-w-[18px] text-center leading-tight z-20">
+                  {items.length}
+                </span>
+              )}
+            </div>
 
             <button
               data-collapse-toggle="navbar-sticky"
@@ -136,6 +154,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <ShoppingCart open={open} setOpen={setOpen} items={items} />
     </>
   );
 };
