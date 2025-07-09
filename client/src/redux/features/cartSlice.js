@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: JSON.parse(localStorage.getItem("cartItems")) || [],
+  subTotal: 0,
 };
 
 const cartSlice = createSlice({
@@ -20,7 +21,9 @@ const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     removeFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter(
+        (item) => item.product !== action.payload
+      );
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
 
@@ -42,9 +45,25 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
+
+    getSubTotal: (state) => {
+      if (state.items.length > 0) {
+        state.subTotal = state.items.reduce(
+          (total, item) => total + Number(item.price) * Number(item.quantity),
+          0
+        );
+      } else {
+        state.subTotal = 0;
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart, clearCart, updateQuantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  updateQuantity,
+  getSubTotal,
+} = cartSlice.actions;
 export default cartSlice.reducer;
