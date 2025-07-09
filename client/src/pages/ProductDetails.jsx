@@ -17,7 +17,7 @@ const ProductDetails = () => {
 
   const [localProduct, setLocalProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -63,10 +63,7 @@ const ProductDetails = () => {
   const handleQuantity = (e) => {
     const qte = e.target.value;
 
-    if (qte < 1) {
-      setQuantity(0);
-      setDisabled(true);
-    } else if (qte <= product.countInStock) {
+    if (qte <= product.countInStock) {
       setQuantity(qte);
       setDisabled(false);
     } else {
@@ -216,7 +213,7 @@ const ProductDetails = () => {
                   <button className="border-2 border-gray-300 ml-1 bg-blue-500 rounded-full w-6 h-6 focus:outline-none"></button>
                 </div>
                 <div className="flex ml-6 items-center">
-                  <span className="mr-3">Quanity</span>
+                  <span className="mr-3">Quantity</span>
                   <input
                     type="number"
                     name="quantity"
