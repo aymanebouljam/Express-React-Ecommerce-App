@@ -9,7 +9,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getSubTotal, removeFromCart } from "../redux/features/cartSlice";
+import {
+  getSubTotal,
+  removeFromCart,
+  updateQuantity,
+} from "../redux/features/cartSlice";
 
 export default function ShoppingCart({ open, setOpen, items }) {
   const dispatch = useDispatch();
@@ -84,13 +88,31 @@ export default function ShoppingCart({ open, setOpen, items }) {
                                   </div>
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
+                                  <div className="flex  items-center">
+                                    <span className="mr-3">Quantity</span>
+                                    <input
+                                      type="number"
+                                      name="quantity"
+                                      min="0"
+                                      defaultValue={item.quantity}
+                                      className="rounded border appearance-none border-gray-300 py-1 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-base pl-3 w-1/4"
+                                      data-id={item.product}
+                                      onBlur={(e) => {
+                                        dispatch(
+                                          updateQuantity({
+                                            id: item.product,
+                                            quantity: Number(e.target.value),
+                                          })
+                                        );
+                                      }}
+                                    />
+                                  </div>
                                   <div className="flex">
                                     <button
                                       type="button"
                                       className="font-medium text-indigo-600 hover:text-indigo-500"
                                       onClick={() => {
                                         dispatch(removeFromCart(item.product));
-                                        // dispatch(getSubTotal());
                                       }}
                                     >
                                       Remove
