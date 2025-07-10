@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store";
 import { HashLoader } from "react-spinners";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -23,7 +24,9 @@ createRoot(document.getElementById("root")).render(
         }
         persistor={persistor}
       >
-        <App />
+        <PayPalScriptProvider options={{ "client-id": "YOUR_CLIENT_ID" }}>
+          <App />
+        </PayPalScriptProvider>
       </PersistGate>
     </Provider>
   </StrictMode>
