@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const seed = async (seeder) => {
   try {
+    console.log(seeder);
     const seedingFunction = require(`./${seeder}`);
 
     const results = await seedingFunction();
