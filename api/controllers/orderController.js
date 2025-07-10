@@ -1,11 +1,14 @@
 const Order = require('../models/Order');
+const Tax = require('../models/Tax');
+const Shipping = require('../models/Shipping');
+
 const {
   Types: { ObjectId },
 } = require('mongoose');
 const Product = require('../models/Product');
 
 exports.createOrder = async (req, res) => {
-  const { orderItems, shippingAddress, taxPrice, shippingPrice, totalPrice } = req.body;
+  const { orderItems, shippingAddress } = req.body;
 
   if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
     res.status(400);
@@ -13,18 +16,54 @@ exports.createOrder = async (req, res) => {
   }
   let subTotal = 0;
 
-  orderItems.forEach(async (item) => {
-    const price = Product.findById(item?.product)?.price;
-    if (!price || item?.price !== price) {
+  for (const item of orderItems) {
+    const product = await Product.findById(item?.product);
+    if (!product) {
       res.status(400);
-      throw new Error('Item price is Invalid');
-    } else if (!item.quantity || item.quantity === 0) {
-      res.status(400);
-      throw new Error('Item quantity cannot be null');
-    } else {
-      subTotal += price * item.quantity;
+      throw new Error('Invalid Product ID');
     }
-  });
+    if (!item.quantity || item.quantity === 0) {
+      res.status(400);
+      throw new Error('Quantity cannot be null');
+    }
+
+    item.name = product.name;
+    item.image = product.image;
+    item.price = product.price;
+
+    subTotal += Number(product.price) * Number(item.quantity);
+  }
+
+  if (!shippingAddress || Object.keys(shippingAddress).length === 0 || !shippingAddress.country) {
+    res.status(400);
+    throw new Error('No shipping country was specified');
+  }
+
+  const tax = await Tax.findOne({ country: shippingAddress.country });
+  if (!tax) {
+    res.status(400);
+    throw new Error('Invalid country');
+  }
+
+  let type = '';
+  if (shippingAddress.country === 'Morocco') {
+    type = 'local';
+  } else {
+    type = 'foreign';
+  }
+
+  const shipping = await Shipping.findOne({ type });
+
+  if (!shipping) {
+    res.status(500);
+    throw new Error('Error occured while retrieving shipping');
+  }
+
+  const taxPrice = Number((subTotal * tax.rate).toFixed(2));
+
+  const shippingPrice = Number(shipping.price.toFixed(2));
+
+  const totalPrice = Number((subTotal + taxPrice + shippingPrice).toFixed(2));
 
   const order = await new Order({
     user: req.user._id,
