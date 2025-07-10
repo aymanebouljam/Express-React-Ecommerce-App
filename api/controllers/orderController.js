@@ -2,6 +2,7 @@ const Order = require('../models/Order');
 const {
   Types: { ObjectId },
 } = require('mongoose');
+const Product = require('../models/Product');
 
 exports.createOrder = async (req, res) => {
   const { orderItems, shippingAddress, taxPrice, shippingPrice, totalPrice } = req.body;
@@ -10,6 +11,20 @@ exports.createOrder = async (req, res) => {
     res.status(400);
     throw new Error('No Item was Ordered');
   }
+  let subTotal = 0;
+
+  orderItems.forEach(async (item) => {
+    const price = Product.findById(item?.product)?.price;
+    if (!price || item?.price !== price) {
+      res.status(400);
+      throw new Error('Item price is Invalid');
+    } else if (!item.quantity || item.quantity === 0) {
+      res.status(400);
+      throw new Error('Item quantity cannot be null');
+    } else {
+      subTotal += price * item.quantity;
+    }
+  });
 
   const order = await new Order({
     user: req.user._id,
