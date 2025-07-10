@@ -3,6 +3,8 @@ import productsReducer from "./features/productsSlice";
 import productReducer from "./features/productSlice";
 import authReducer from "./features/auth/authSlice";
 import cartReducer from "./features/cartSlice";
+
+import { taxReducer, shippingReducer } from "./features/billingSlice";
 import {
   persistReducer,
   persistStore,
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   product: productReducer,
   auth: authReducer,
   cart: cartReducer,
+  tax: taxReducer,
+  shipping: shippingReducer,
 });
 
 const persistConfig = {

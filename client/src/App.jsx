@@ -3,6 +3,7 @@ import Layout from "./layouts/Layout";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 import Register from "./pages/auth/Register";
@@ -10,13 +11,15 @@ import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadUserFromStorage } from "./redux/features/auth/authSlice";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { fetchShippingPrices, fetchTaxes } from "./redux/features/billingSlice";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadUserFromStorage());
+    dispatch(fetchTaxes());
+    dispatch(fetchShippingPrices());
   }, [dispatch]);
 
   return (
@@ -34,6 +37,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Logout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment/:id"
+              element={
+                <ProtectedRoute>
+                  <Payment />
                 </ProtectedRoute>
               }
             />
