@@ -21,7 +21,7 @@ module.exports = model(
         country: { type: String, required: true },
       },
       paymentMethod: { type: String, required: true, default: 'Paypal' },
-      paymentDetails: {
+      paymentResult: {
         id: { type: String },
         status: { type: String },
         updated_time: { type: Date },
