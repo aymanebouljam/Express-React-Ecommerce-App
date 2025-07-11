@@ -8,7 +8,7 @@ exports.taxes = [
     rate: 0.1,
   },
   {
-    country: 'United states',
+    country: 'Canada',
     rate: 0.3,
   },
   {
