@@ -88,35 +88,42 @@ export default function ShoppingCart({ open, setOpen, items }) {
                                   </div>
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                  <div className="flex  items-center">
-                                    <span className="mr-3">Quantity</span>
-                                    <input
-                                      type="number"
-                                      name="quantity"
-                                      min="0"
-                                      defaultValue={item.quantity}
-                                      className="rounded border appearance-none border-gray-300 py-1 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-base pl-3 w-1/4"
-                                      data-id={item.product}
-                                      onBlur={(e) => {
-                                        dispatch(
-                                          updateQuantity({
-                                            id: item.product,
-                                            quantity: Number(e.target.value),
-                                          })
-                                        );
-                                      }}
-                                    />
-                                  </div>
-                                  <div className="flex">
-                                    <button
-                                      type="button"
-                                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                                      onClick={() => {
-                                        dispatch(removeFromCart(item.product));
-                                      }}
-                                    >
-                                      Remove
-                                    </button>
+                                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-2 sm:space-y-0">
+                                    <div className="flex items-center w-full sm:w-auto sm:max-w-xs">
+                                      <span className="mr-3 text-sm sm:text-base">
+                                        Quantity
+                                      </span>
+                                      <input
+                                        type="number"
+                                        name="quantity"
+                                        min="0"
+                                        defaultValue={item.quantity}
+                                        className="rounded border appearance-none border-gray-300 py-1 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-sm sm:text-base pl-3 w-1/4"
+                                        data-id={item.product}
+                                        onBlur={(e) => {
+                                          dispatch(
+                                            updateQuantity({
+                                              id: item.product,
+                                              quantity: Number(e.target.value),
+                                            })
+                                          );
+                                        }}
+                                      />
+                                    </div>
+
+                                    <div className="flex justify-start sm:justify-end w-full sm:w-auto">
+                                      <button
+                                        type="button"
+                                        className="font-medium text-indigo-600 hover:text-indigo-500 text-sm sm:text-base"
+                                        onClick={() => {
+                                          dispatch(
+                                            removeFromCart(item.product)
+                                          );
+                                        }}
+                                      >
+                                        Remove
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>

@@ -12,7 +12,7 @@ const Footer = () => {
             className="flex items-center justify-center sm:justify-start space-x-2"
           >
             <img
-              src="https://www.svgrepo.com/show/415710/ecommerce-price-price-tag.svg"
+              src="https://www.svgrepo.com/show/477280/shopping-cart-17.svg"
               className="h-8"
               alt="Shopy Logo"
             />
@@ -48,7 +48,7 @@ const Footer = () => {
 
         <span className="block text-sm text-gray-500 text-center">
           © 2025{" "}
-          <a href="https://Shopy.com/" className="hover:underline">
+          <a href="#" className="hover:underline">
             Shopy™
           </a>
           . All Rights Reserved.
