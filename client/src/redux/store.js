@@ -4,6 +4,7 @@ import productReducer from "./features/productSlice";
 import authReducer from "./features/auth/authSlice";
 import cartReducer from "./features/cartSlice";
 import summaryReducer from "./features/summarySlice";
+import ordersReducer from "./features/ordersSlice.js";
 
 import { taxReducer, shippingReducer } from "./features/billingSlice";
 import {
@@ -26,12 +27,13 @@ const rootReducer = combineReducers({
   tax: taxReducer,
   shipping: shippingReducer,
   summary: summaryReducer,
+  orders: ordersReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["products", "summary"],
+  whitelist: ["products", "summary", "orders"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

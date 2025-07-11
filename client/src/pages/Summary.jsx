@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectTax, selectShippingPrice } from "../redux/features/billingSlice";
+import { fetchUserOrders } from "../redux/features/ordersSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Summary() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const orderItems = useSelector((state) => state.cart.items);
 
@@ -41,10 +43,12 @@ export default function Summary() {
         { orderItems, shippingAddress },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NmE4NzA5MmYwYzk0OWExYWM1MDc4NSIsIm5hbWUiOiJBaG1lZCBBbGFtaSIsImlhdCI6MTc1MjI0MTcxOCwiZXhwIjoxNzUzNTM3NzE4fQ.f5bPLR4oCapjE3S5H1KBxTU3hyqBf_UPhtU2Y50ni5k`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
+
+      dispatch(fetchUserOrders(token));
 
       navigate(`/payment/${res.data._id}`);
     } catch (error) {
