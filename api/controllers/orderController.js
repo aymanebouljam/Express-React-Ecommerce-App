@@ -10,6 +10,8 @@ const Product = require('../models/Product');
 exports.createOrder = async (req, res) => {
   const { orderItems, shippingAddress } = req.body;
 
+  console.log(orderItems);
+
   if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
     res.status(400);
     throw new Error('No Item was Ordered');
@@ -92,11 +94,16 @@ exports.updateOrderPayment = async (req, res) => {
     throw new Error('Order Not Found');
   }
 
-  order.paymentDetails = {
+  if (!order.user === req.user.id) {
+    res.status(403);
+    throw new Error('Unauthorized');
+  }
+
+  order.paymentResult = {
     id: req.body.id,
-    status: req.body.status,
-    updated_time: req.body.updated_time,
-    email_address: req.body.email_address,
+    status: 'COMPLETED',
+    updated_time: Date.now(),
+    email_address: req.body?.email_address ?? req.user.email,
   };
 
   order.isPaid = true;
