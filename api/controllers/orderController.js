@@ -74,6 +74,9 @@ exports.createOrder = async (req, res) => {
     taxPrice,
     shippingPrice,
     totalPrice,
+    paymentResult: {
+      status: 'PENDING',
+    },
   }).save();
 
   return res.status(201).json(order);
