@@ -1,15 +1,12 @@
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setSummary } from "../redux/features/summarySlice";
 
 export default function Checkout() {
-  const baseURL = import.meta.env.VITE_API_BASE_URL;
-
   const orderItems = useSelector((state) => state.cart.items);
 
-  const token = useSelector((state) => state.token);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,22 +30,8 @@ export default function Checkout() {
           alert("Cart is empty !");
           return;
         } else {
-          const res = await axios.post(
-            `${baseURL}/orders`,
-            {
-              orderItems,
-              shippingAddress,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-
-          if (res.data._id) {
-            navigate(`/payment/${res.data._id}`);
-          }
+          dispatch(setSummary(shippingAddress));
+          navigate(`/summary`);
         }
       } catch (err) {
         console.error(
@@ -59,7 +42,7 @@ export default function Checkout() {
     }
   };
   return (
-    <section className="bg-gray-50 py-14">
+    <section className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
@@ -93,7 +76,7 @@ export default function Checkout() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="123 Main St"
                     name="street"
-                    required="true"
+                    required
                   />
                 </div>
 
@@ -107,7 +90,7 @@ export default function Checkout() {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       placeholder="Casablanca"
                       name="city"
-                      required="true"
+                      required
                     />
                   </div>
                   <div>
@@ -119,7 +102,7 @@ export default function Checkout() {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       placeholder="20000"
                       name="zipCode"
-                      required="true"
+                      required
                     />
                   </div>
                 </div>
@@ -130,7 +113,7 @@ export default function Checkout() {
                   </label>
                   <select
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required="true"
+                    required
                     name="country"
                   >
                     <option value="Morocco">Morocco</option>
