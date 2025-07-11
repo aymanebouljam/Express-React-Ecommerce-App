@@ -55,7 +55,7 @@ const authSlice = createSlice({
       const user = localStorage.getItem("user");
 
       if (token && user) {
-        state.token = token;
+        state.token = JSON.parse(token);
         state.user = JSON.parse(user);
         state.status = SUCCEEDED;
       } else {

@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadUserFromStorage } from "./redux/features/auth/authSlice";
 import { fetchShippingPrices, fetchTaxes } from "./redux/features/billingSlice";
+import Summary from "./pages/Summary";
+import Confirmation from "./pages/Confirmation";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,10 +43,26 @@ function App() {
               }
             />
             <Route
-              path="/payment/:id"
+              path="/summary"
+              element={
+                <ProtectedRoute>
+                  <Summary />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment/:orderId"
               element={
                 <ProtectedRoute>
                   <Payment />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/confirmation/:orderId"
+              element={
+                <ProtectedRoute>
+                  <Confirmation />
                 </ProtectedRoute>
               }
             />

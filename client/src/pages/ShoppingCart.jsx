@@ -19,17 +19,13 @@ export default function ShoppingCart({ open, setOpen, items }) {
   const dispatch = useDispatch();
   const subTotal = useSelector((state) => state.cart.subTotal);
 
-  const tax = Number(subTotal) * 0.05;
-  const shippingPrice = 5;
-  const total = subTotal + tax + shippingPrice;
-
   useEffect(() => {
     dispatch(getSubTotal());
   }, [dispatch, items]);
 
   return (
     <div>
-      <Dialog open={open} onClose={setOpen} className="relative z-40">
+      <Dialog open={open} onClose={setOpen} className="relative z-99">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-500/75 transition-opacity duration-500 ease-in-out data-closed:opacity-0"
@@ -136,25 +132,17 @@ export default function ShoppingCart({ open, setOpen, items }) {
                       <p>Subtotal</p>
                       <p>${subTotal.toFixed(2)}</p>
                     </div>
-                    <div className="flex justify-between text-base font-medium text-gray-900">
-                      <p>Tax (5%)</p>
-                      <p>${tax.toFixed(2)}</p>
-                    </div>
-                    <div className="flex justify-between text-base font-medium text-gray-900 pb-1">
-                      <p>Shipping price</p>
-                      <p>${shippingPrice.toFixed(2)}</p>
-                    </div>
-                    <div className="flex justify-between text-base font-medium text-gray-900 pt-1 border-t-2 border-slate-100">
-                      <p>Total</p>
-                      <p>${total.toFixed(2)}</p>
-                    </div>
+                    <p className="mt-0.5 text-sm text-gray-500">
+                      Shipping and taxes calculated at checkout.
+                    </p>
                     <div className="mt-6">
-                      <a
-                        href="#"
+                      <Link
+                        to="/checkout"
+                        onClick={() => setTimeout(() => setOpen(false), 300)}
                         className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700"
                       >
                         Checkout
-                      </a>
+                      </Link>
                     </div>
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                       <p>
