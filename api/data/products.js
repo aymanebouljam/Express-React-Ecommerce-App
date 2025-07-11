@@ -1,121 +1,118 @@
 const products = [
   {
-    name: 'Adidas Samba OG Shoes',
+    name: 'Dell XPS 13 Laptop',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/52c951e30dcb4ff1bfdfd053405a6f75_9366/Samba_Shoes_Green_IG1243_01_standard.jpg',
+      'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/1e76c735-eea8-4fd5-9466-83dc5a1f8fa4.jpg;maxHeight=427;maxWidth=640?format=webp',
     description:
-      'Classic soccer-inspired sneakers with a soft leather upper and gum rubber outsole. Perfect for casual wear and light sports activities.',
-    price: 99.99,
+      'A premium ultrabook with Intel Core i7 processor, 16GB RAM, and a 512GB SSD. Ideal for professionals and creatives.',
+    price: 999.99,
     countInStock: 15,
     rating: 4.8,
     numReview: 42,
   },
   {
-    name: 'Adidas Forum Low Shoes',
+    name: 'Apple MacBook Air M2',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ee357a7a8aef48d9b295af9e00205eec_9366/Forum_Low_Shoes_White_IE7165_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2024/06/Design-sans-titre-2024-06-27T103124.544.png',
     description:
-      'Retro basketball sneakers with adjustable ankle strap. Features a premium leather upper and cushioned midsole for all-day comfort.',
-    price: 119.99,
+      'Lightweight and powerful, featuring the new M2 chip, 8GB RAM, and 256GB SSD for smooth multitasking.',
+    price: 1199.99,
     countInStock: 0,
     rating: 4.5,
     numReview: 36,
   },
   {
-    name: 'Adidas Stan Smith Shoes',
+    name: 'HP Spectre x360 14',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/a655b830a086442aa041af9c009fcdfc_9366/Stan_Smith_Shoes_White_FZ6429_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2025/01/Design-sans-titre-2025-01-22T101652.490.png',
     description:
-      'Iconic minimalist tennis shoes with perforated 3-Stripes and heel tab. Made with sustainable materials.',
-    price: 89.99,
+      'A versatile 2-in-1 laptop with a 13.5-inch OLED display, Intel Core i7, 16GB RAM, and 512GB SSD.',
+    price: 1499.99,
     countInStock: 22,
     rating: 4.7,
     numReview: 58,
   },
   {
-    name: 'Adidas Stan Smith Crepe',
+    name: 'Lenovo ThinkPad X1 Carbon Gen 9',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/584dcc48a1734ca4baf314572273e64e_9366/Stan_Smith_Crepe_Shoes_White_IG5531_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2024/11/Design-sans-titre-2024-11-27T161025.388.png',
     description:
-      'Elevated Stan Smith design with a crepe rubber outsole for added traction and a vintage-inspired look.',
-    price: 109.99,
+      'A durable business laptop with Intel Core i7, 16GB RAM, and 1TB SSD. Known for its exceptional keyboard.',
+    price: 1799.99,
     countInStock: 8,
     rating: 4.3,
     numReview: 19,
   },
   {
-    name: 'Adidas Superstar ADV',
+    name: 'Asus ROG Zephyrus G14',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b7e1026dbe8248fbbc31ae02002e1a62_9366/Superstar_ADV_Shoes_White_GW6930_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2024/11/Design-sans-titre-2024-11-27T150432.985.png',
     description:
-      'Modern take on the classic shell-toe sneaker with an athletic-inspired design and responsive cushioning.',
-    price: 94.99,
+      'High-performance gaming laptop with AMD Ryzen 9, 16GB RAM, and a 1TB SSD. 14-inch QHD display with a 120Hz refresh rate.',
+    price: 1699.99,
     countInStock: 14,
     rating: 4.6,
     numReview: 27,
   },
   {
-    name: 'Adidas Forum 84 Low',
+    name: 'Microsoft Surface Laptop 4',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/aebc2dba24cd456a9baaafad0019bac3_9366/Forum_84_Low_ADV_Shoes_Black_IG7581_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2024/05/Design-sans-titre-2024-05-28T112443.604.png',
     description:
-      '1984 basketball original reimagined with premium materials and a sleek low-top silhouette.',
-    price: 129.99,
+      'Sleek and elegant laptop with Intel Core i7, 16GB RAM, and a 512GB SSD. Perfect for students and professionals.',
+    price: 1399.99,
     countInStock: 5,
     rating: 4.4,
     numReview: 31,
   },
   {
-    name: 'Adidas Cuffed Pom Beanie',
+    name: 'Samsung Galaxy Book Pro 360',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/418d83e0c655438da814ad1d00eccd79_9366/CUFFED_POM_Black_GQ8103_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2025/05/Design-sans-titre-2025-05-09T093020.384.png',
     description:
-      'Warm acrylic beanie with fold-over cuff and fluffy pom detail. One-size fits most adults.',
-    price: 24.99,
+      'Convertible laptop with Intel Core i5, 8GB RAM, and a 256GB SSD. 13.3-inch AMOLED touch display for vibrant visuals.',
+    price: 1299.99,
     countInStock: 33,
     rating: 4.2,
     numReview: 12,
   },
   {
-    name: 'Adidas Training Backpack',
-    image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/26c21c4b8bcb43d096caaf330079978b_9366/Designed_for_Training_HIIT_Backpack_Grey_HT2441_01_standard.jpg',
+    name: 'Acer Predator Helios 300',
+    image: 'https://virginmegastore.ma/wp-content/uploads/2023/11/Aquacouleur-6-5.png',
     description:
-      '25L gym backpack with ventilated shoe compartment, laptop sleeve, and water-resistant materials.',
-    price: 49.99,
+      'Gaming laptop with Intel Core i7, 16GB RAM, and a 512GB SSD. Includes NVIDIA GeForce RTX 3060 for smooth gameplay.',
+    price: 1499.99,
     countInStock: 11,
     rating: 4.1,
     numReview: 8,
   },
   {
-    name: 'Adidas Favorites Backpack',
-    image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/7220fd98945942b0a2ceafa50188fc5c_9366/Favorites_Backpack_Turquoise_HY3000_01_standard.jpg',
+    name: 'Razer Blade 15 Advanced',
+    image: 'https://virginmegastore.ma/wp-content/uploads/2023/11/845L4EA-1.jpg',
     description:
-      '18L everyday backpack made with recycled materials. Features a front zip pocket and padded shoulder straps.',
-    price: 39.99,
+      'Powerful gaming laptop with Intel Core i9, 32GB RAM, and a 1TB SSD. 15.6-inch Full HD display with a 360Hz refresh rate.',
+    price: 2399.99,
     countInStock: 19,
     rating: 3.9,
     numReview: 5,
   },
   {
-    name: 'Adidas Yoga Tote Bag',
+    name: 'Dell Alienware M15 R6',
     image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/1fbc9be735c54edbbb490628e3804bda_9366/Yoga_Tote_Bag_Pink_HZ5945_01_standard.jpg',
+      'https://virginmegastore.ma/wp-content/uploads/2024/11/Design-sans-titre-2024-11-27T143755.626.png',
     description:
-      'Spacious tote with internal pockets for yoga mat, water bottle, and accessories. Machine washable.',
-    price: 34.99,
+      'High-performance gaming laptop with Intel Core i7, 16GB RAM, and 512GB SSD. NVIDIA GeForce RTX 3070 for immersive gaming.',
+    price: 1899.99,
     countInStock: 7,
     rating: 4.0,
     numReview: 14,
   },
   {
-    name: 'Adidas Superlite Cap',
-    image:
-      'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/23092e0453ce4f8085c2ad47018102bb_9366/Superlite_Hat_Black_EX6700_01_standard.jpg',
+    name: 'Google Pixelbook Go',
+    image: 'https://virginmegastore.ma/wp-content/uploads/2023/11/Aquacouleur-6-5.png',
     description:
-      'Lightweight performance hat with curved visor and sweat-wicking fabric. Adjustable hook-and-loop closure.',
-    price: 22.99,
+      'Chromebook with Intel Core i5, 8GB RAM, and a 128GB SSD. Lightweight and portable, perfect for students and casual users.',
+    price: 649.99,
     countInStock: 25,
     rating: 4.3,
     numReview: 17,
