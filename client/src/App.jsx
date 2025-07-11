@@ -9,20 +9,27 @@ import Logout from "./pages/auth/Logout";
 import Register from "./pages/auth/Register";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadUserFromStorage } from "./redux/features/auth/authSlice";
 import { fetchShippingPrices, fetchTaxes } from "./redux/features/billingSlice";
 import Summary from "./pages/Summary";
 import Confirmation from "./pages/Confirmation";
+import OrderHistory from "./pages/OrderHistory";
+import { fetchUserOrders } from "./redux/features/ordersSlice";
 
 function App() {
   const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     dispatch(loadUserFromStorage());
     dispatch(fetchTaxes());
     dispatch(fetchShippingPrices());
-  }, [dispatch]);
+    if (token) {
+      dispatch(fetchUserOrders(token));
+    }
+  }, [dispatch, token]);
 
   return (
     <>
@@ -63,6 +70,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Confirmation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orderHistory"
+              element={
+                <ProtectedRoute>
+                  <OrderHistory />
                 </ProtectedRoute>
               }
             />
