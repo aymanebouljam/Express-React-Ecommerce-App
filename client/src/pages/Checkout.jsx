@@ -118,7 +118,7 @@ export default function Checkout() {
                   >
                     <option value="Morocco">Morocco</option>
                     <option value="France">France</option>
-                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
                     <option value="Germany">Germany</option>
                   </select>
                 </div>

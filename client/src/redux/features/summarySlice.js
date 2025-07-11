@@ -9,9 +9,13 @@ const summarySlice = createSlice({
     setSummary: (state, action) => {
       state.shippingAddress = action.payload;
     },
+
+    clearSummary: (state) => {
+      state.shippingAddress = {};
+    },
   },
 });
 
-export const { setSummary } = summarySlice.actions;
+export const { setSummary, clearSummary } = summarySlice.actions;
 
 export default summarySlice.reducer;

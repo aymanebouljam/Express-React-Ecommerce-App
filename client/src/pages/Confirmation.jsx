@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { clearCart } from "../redux/features/cartSlice";
+import { clearSummary } from "../redux/features/summarySlice";
 
 export default function ConfirmationPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearCart());
+    dispatch(clearSummary());
+  }, [dispatch]);
   return (
     <section className="bg-white py-16 px-4 text-center">
       <div className="max-w-xl mx-auto">
