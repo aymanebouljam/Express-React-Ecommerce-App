@@ -17,7 +17,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="https://www.svgrepo.com/show/415710/ecommerce-price-price-tag.svg"
+              src="https://www.svgrepo.com/show/477280/shopping-cart-17.svg"
               className="h-8"
               alt="Shopy Logo"
             />
@@ -54,7 +54,7 @@ const Navbar = () => {
                 />
               </svg>
               {items.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
                   {items.length}
                 </span>
               )}

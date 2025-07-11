@@ -51,7 +51,7 @@ const Login = () => {
     >
       <img
         className="w-8 h-8 mr-2"
-        src="https://www.svgrepo.com/show/415710/ecommerce-price-price-tag.svg"
+        src="https://www.svgrepo.com/show/477280/shopping-cart-17.svg"
         alt="logo"
       />
       Shopy
